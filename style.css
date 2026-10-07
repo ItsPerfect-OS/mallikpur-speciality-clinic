@@ -836,3 +836,72 @@ textarea {
     }
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    color: #164e49;
+    text-decoration: none;
+
+    font-size: 1.25rem;
+    font-weight: 750;
+    line-height: 1.1;
+}
+
+.logo img {
+    width: 100px;
+    height: auto;
+    display: block;
+}
+
+.logo span {
+    display: block;
+    margin-bottom: 4px;
+
+    color: #78918e;
+
+    font-size: 0.72rem;
+    font-weight: 500;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.logo strong {
+    display: block;
+}
+.doctor-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.doctor-photo {
+    width: 120px;
+    height: 150px;
+    flex-shrink: 0;
+
+    object-fit: cover;
+
+    border-radius: 14px;
+}
+
+.doctor-info {
+    min-width: 0;
+}
+
+.doctor-info h3 {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 500px) {
+    .doctor-card {
+        align-items: flex-start;
+    }
+
+    .doctor-photo {
+        width: 90px;
+        height: 115px;
+    }
+}
