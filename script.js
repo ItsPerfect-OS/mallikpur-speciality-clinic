@@ -9,53 +9,55 @@ const supabaseClient = window.supabase.createClient(
 const form = document.getElementById("appointment-form");
 const formMessage = document.getElementById("form-message");
 
-form.addEventListener("submit", async function (event) {
-    event.preventDefault();
+if (form) {
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const speciality = document.getElementById("speciality").value;
-    const appointmentDate =
-        document.getElementById("appointment-date").value;
-    const appointmentTime =
-        document.getElementById("appointment-time").value;
-    const message =
-        document.getElementById("message").value.trim();
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const speciality = document.getElementById("speciality").value;
+        const appointmentDate =
+            document.getElementById("appointment-date").value;
+        const appointmentTime =
+            document.getElementById("appointment-time").value;
+        const message =
+            document.getElementById("message").value.trim();
 
-    if (!name || !phone || !appointmentDate || !appointmentTime) {
-        formMessage.textContent =
-            "Please fill in all required fields.";
-        return;
-    }
-
-    formMessage.textContent =
-        "Sending your appointment request...";
-
-    const { error } = await supabaseClient
-        .from("appointments")
-        .insert([
-            {
-                name,
-                phone,
-                speciality,
-                message,
-                appointment_date: appointmentDate,
-                appointment_time: appointmentTime,
-                status: "Pending"
-            }
-        ]);
-
-    if (error) {
-        console.error("Supabase error:", error);
+        if (!name || !phone || !appointmentDate || !appointmentTime) {
+            formMessage.textContent =
+                "Please fill in all required fields.";
+            return;
+        }
 
         formMessage.textContent =
-            "Could not send appointment: " + error.message;
+            "Sending your appointment request...";
 
-        return;
-    }
+        const { error } = await supabaseClient
+            .from("appointments")
+            .insert([
+                {
+                    name,
+                    phone,
+                    speciality,
+                    message,
+                    appointment_date: appointmentDate,
+                    appointment_time: appointmentTime,
+                    status: "Pending"
+                }
+            ]);
 
-    formMessage.textContent =
-        `Thank you, ${name}. Your appointment request has been received!`;
+        if (error) {
+            console.error("Supabase error:", error);
 
-    form.reset();
-});
+            formMessage.textContent =
+                "Could not send appointment: " + error.message;
+
+            return;
+        }
+
+        formMessage.textContent =
+            `Thank you, ${name}. Your appointment request has been received!`;
+
+        form.reset();
+    });
+}
